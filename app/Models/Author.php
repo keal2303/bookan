@@ -11,10 +11,11 @@ class Author extends Model
     use HasFactory;
 
     protected $fillable = [
+        'genre_id',
         'name',
         'bio',
-        'birth_date',
-        'death_date',
+        'birth_year',
+        'death_year',
         'nationality',
         'website',
         'media'

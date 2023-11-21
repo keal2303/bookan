@@ -15,6 +15,7 @@ class Book extends Model
       'author_id',
       'genre_id',
       'title',
+      'description',
       'isbn',
       'published_year'
     ];
