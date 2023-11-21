@@ -36,7 +36,7 @@ class GenreController extends Controller
         $genre = new Genre;
         $genre->fill($request->only('name', 'description'));
         $genre->save();
-        return redirect()->route('genres.index');
+        return redirect()->route('genres.index')->with('success', 'Author created successfully.');
     }
 
     /**
@@ -65,7 +65,7 @@ class GenreController extends Controller
         $genre = Genre::findOrFail($id);
         $genre->fill($request->only('name', 'description'));
         $genre->save();
-        return redirect()->route('genres.index');
+        return redirect()->route('genres.index')->with('success', 'Author updated successfully.');
     }
 
     /**
@@ -75,6 +75,6 @@ class GenreController extends Controller
     {
         $genre = Genre::findOrFail($id);
         $genre->delete();
-        return redirect()->route('genres.index');
+        return redirect()->route('genres.index')->with('success', 'Author deleted successfully.');
     }
 }

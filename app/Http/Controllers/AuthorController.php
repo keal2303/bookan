@@ -35,7 +35,7 @@ class AuthorController extends Controller
         $author = new Author;
         $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'nationality', 'link', 'media'));
         $author->save();
-        return redirect()->route('author.index');
+        return redirect()->route('author.index')->with('success', 'Author created successfully.');
     }
 
     /**
@@ -64,7 +64,7 @@ class AuthorController extends Controller
         $author = Author::findOrFail($id);
         $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'nationality', 'link', 'media'));
         $author->save();
-        return redirect()->route('authors.index');
+        return redirect()->route('authors.index')->with('success', 'Author updated successfully.');
     }
 
     /**
@@ -74,6 +74,6 @@ class AuthorController extends Controller
     {
         $author = Author::findOrFail($id);
         $author->delete();
-        return redirect()->route('authors.index');
+        return redirect()->route('authors.index')->with('success', 'Author deleted successfully.');
     }
 }

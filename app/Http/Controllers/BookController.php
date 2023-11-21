@@ -36,7 +36,7 @@ class BookController extends Controller
         $book = new Book;
         $book->fill($request->only('author_id', 'genre_id', 'title', 'description', 'isbn', 'published_year'));
         $book->save();
-        return redirect()->route('books.index');
+        return redirect()->route('books.index')->with('success', 'Author created successfully.');
     }
 
     /**
@@ -65,7 +65,7 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $book->fill($request->only('author_id', 'genre_id', 'title', 'description', 'isbn', 'published_year'));
         $book->save();
-        return redirect()->route('books.index');
+        return redirect()->route('books.index')->with('success', 'Author updated successfully.');
     }
 
     /**
@@ -75,6 +75,6 @@ class BookController extends Controller
     {
         $book = Book::findOrFail($id);
         $book->delete();
-        return redirect()->route('books.index');
+        return redirect()->route('books.index')->with('success', 'Author deleted successfully.');
     }
 }
