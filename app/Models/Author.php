@@ -17,7 +17,7 @@ class Author extends Model
         'birth_year',
         'death_year',
         'nationality',
-        'website',
+        'link',
         'media'
     ];
 

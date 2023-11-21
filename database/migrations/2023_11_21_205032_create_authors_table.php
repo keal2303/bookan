@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('genre_id');
+            $table->unsignedBigInteger('genre_id')->nullable();
             $table->string('name')->unique();
             $table->string('bio');
             $table->year('birth_year');
             $table->year('death_year')->nullable();
-            $table->boolean('is_alive');
+            $table->boolean('is_alive')->default(true);
             $table->string('nationality');
-            $table->string('website');
-            $table->string('media');
+            $table->string('link')->nullable();
+            $table->string('media')->nullable();
             $table->timestamps();
 
             $table->foreign('genre_id')->references('id')->on('genres');
