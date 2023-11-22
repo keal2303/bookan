@@ -26,6 +26,7 @@
     <input type="text" id="link" name="link"><br>
     <label for="media">Media:</label><br>
     <input type="text" id="media" name="media"><br>
+    <label for="genre_id">Genre:</label>
     <!-- TODO: Add search bar and action buttons-->
     <select id="genre_id" name="genre_id">
         @foreach($genres as $genre)
