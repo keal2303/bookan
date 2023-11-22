@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Author;
+use App\Models\Genre;
+
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -25,7 +28,9 @@ class BookController extends Controller
      */
     public function create(): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('books.create');
+        $authors = Author::all();
+        $genres = Genre::all();
+        return view('books.create', compact( 'authors', 'genres'));
     }
 
     /**

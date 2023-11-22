@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Genre;
+
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -24,7 +26,8 @@ class AuthorController extends Controller
      */
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('authors.create');
+        $genres = Genre::all();
+        return view('authors.create', compact('genres'));
     }
 
     /**
@@ -35,7 +38,7 @@ class AuthorController extends Controller
         $author = new Author;
         $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'nationality', 'link', 'media'));
         $author->save();
-        return redirect()->route('author.index')->with('success', 'Author created successfully.');
+        return redirect()->route('authors.index')->with('success', 'Author created successfully.');
     }
 
     /**
