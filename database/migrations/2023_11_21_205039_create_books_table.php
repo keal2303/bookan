@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('author_id');
-            $table->unsignedBigInteger('genre_id');
+            $table->unsignedBigInteger('author_id')->nullable();;
+            $table->unsignedBigInteger('genre_id')->nullable();;
             $table->string('title');
             $table->string('description');
             $table->string('isbn')->unique();
@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('published_year');
             $table->timestamps();
 
-            $table->foreign('author_id')->references('id')->on('authors');
-            $table->foreign('genre_id')->references('id')->on('genres');
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('set null');
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('set null');
         });
     }
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('genre_id');
+            $table->unsignedBigInteger('genre_id')->nullable();
             $table->string('name')->unique();
             $table->string('bio');
             $table->string('birth_year')->nullable();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('media')->nullable();
             $table->timestamps();
 
-            $table->foreign('genre_id')->references('id')->on('genres');
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('set null');
         });
     }
 
