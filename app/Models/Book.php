@@ -24,7 +24,7 @@ class Book extends Model
     ];
 
     /**
-     * Get the author
+     * Get the author.
      */
     public function author(): BelongsTo
     {
@@ -32,7 +32,7 @@ class Book extends Model
     }
 
     /**
-     * Get the genre
+     * Get the genre.
      */
     public function genre(): BelongsToMany
     {

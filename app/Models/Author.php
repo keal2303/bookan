@@ -29,7 +29,22 @@ class Author extends Model
     ];
 
     /**
-     * Get the genre
+     * Set is_alive to false is death_year is not null.
+     * Else, is_alive will be true by default.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($author) {
+            if (!is_null($author->death_year)) {
+                $author->is_alive = false;
+            }
+        });
+    }
+
+    /**
+     * Get the genre.
      */
     public function genre(): BelongsToMany
     {
