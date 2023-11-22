@@ -9,18 +9,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static findOrFail(string $id)
+ * @property mixed|string $language to get string from language key value
  */
 class Book extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-      'author_id',
-      'genre_id',
-      'title',
-      'description',
-      'isbn',
-      'published_year'
+        'author_id',
+        'genre_id',
+        'title',
+        'description',
+        'isbn',
+        'language',
+        'published_year'
     ];
 
     /**

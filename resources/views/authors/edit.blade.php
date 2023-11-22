@@ -18,9 +18,9 @@
     <input type="number" id="death_year" name="death_year"><br>
     <label for="language">Language</label><br>
     <select id="language" name="language">
-        <option value="1">aaa</option>
-        <option value="2">bbb</option>
-        <option value="3">ccc</option>
+        <option value="1">English</option>
+        <option value="2">French</option>
+        <option value="3">Others</option>
     </select><br>
     <label for="link">Link:</label><br>
     <input type="text" id="link" name="link"><br>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static findOrFail(string $id)
- * @property mixed|string $language to get string from key value
+ * @property mixed|string $language to get string from language key value
  */
 class Author extends Model
 {

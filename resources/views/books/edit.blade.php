@@ -28,6 +28,12 @@
     <textarea id="description" name="description" cols="30" rows="10"></textarea>
     <label for="isbn">ISBN:</label>
     <input type="text" id="isbn" name="isbn">
+    <label for="language">Language</label><br>
+    <select id="language" name="language">
+        <option value="1">English</option>
+        <option value="2">French</option>
+        <option value="3">Others</option>
+    </select><br>
     <label for="published_year">Published Year:</label>
     <input type="number" id="published_year" name="published_year">
     <button type="submit">Submit</button>

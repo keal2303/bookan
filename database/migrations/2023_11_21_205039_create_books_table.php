@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('isbn')->unique();
+            $table->string('language');
             $table->string('published_year');
             $table->timestamps();
 

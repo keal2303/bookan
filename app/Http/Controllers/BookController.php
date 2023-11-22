@@ -38,8 +38,17 @@ class BookController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $languages = [
+            '1' => 'English',
+            '2' => 'French',
+            '3' => 'Other',
+        ];
+        $selectedValue = $request->input('language');
+        $selectedLanguage = $languages[$selectedValue] ?? 'default';
+
         $book = new Book;
         $book->fill($request->only('author_id', 'genre_id', 'title', 'description', 'isbn', 'published_year'));
+        $book->language = $selectedLanguage;
         $book->save();
         return redirect()->route('books.index')->with('success', 'Author created successfully.');
     }

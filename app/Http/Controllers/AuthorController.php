@@ -36,13 +36,13 @@ class AuthorController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $languages = [
-            '1' => 'aaa',
-            '2' => 'bbb',
-            '3' => 'ccc',
+            '1' => 'English',
+            '2' => 'French',
+            '3' => 'Other',
         ];
-
         $selectedValue = $request->input('language');
         $selectedLanguage = $languages[$selectedValue] ?? 'default';
+
         $author = new Author;
         $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'link', 'media'));
         $author->language = $selectedLanguage;
