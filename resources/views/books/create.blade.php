@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Create Book</h1>
-<form action="{{ route('books.store') }}" method="POST">
+<form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <label for="author_id">Author:</label><br>
     <!-- TODO: Add search bar and action buttons -->
@@ -35,6 +35,7 @@
     </select><br>
     <label for="published_year">Published Year:</label><br>
     <input type="number" id="published_year" name="published_year"><br>
+    <input type="file" name="image">
     <button type="submit">Submit</button><br>
 </form>
 <a href="{{ route('books.index') }}">Back to list</a>

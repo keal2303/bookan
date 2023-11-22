@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('isbn')->unique();
             $table->string('language');
             $table->string('published_year');
+            $table->string('image')->nullable();
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('set null');

@@ -49,6 +49,20 @@ class BookController extends Controller
         $book = new Book;
         $book->fill($request->only('author_id', 'genre_id', 'title', 'description', 'isbn', 'published_year'));
         $book->language = $selectedLanguage;
+
+
+        /**
+         * Create uploaded image logic.
+         */
+        if ($request->hasFile('image'))
+        {
+            $storage_path = 'public/books_images';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $path = $request->file('image')->storeAs($storage_path, $image_name);
+            $book->image = $image_name;
+        }
+
         $book->save();
         return redirect()->route('books.index')->with('success', 'Author created successfully.');
     }
@@ -77,7 +91,17 @@ class BookController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $book = Book::findOrFail($id);
-        $book->fill($request->only('author_id', 'genre_id', 'title', 'description', 'isbn', 'published_year'));
+        $book->fill($request->only('author_id', 'genre_id', 'title', 'description', 'isbn', 'published_year', 'image'));
+
+        /**
+         * Update uploaded image logic.
+         */
+        if ($request->hasFile('image'))
+        {
+            $filename = $request->image->store('books_images', 'public');
+            $book->image = $filename;
+        }
+
         $book->save();
         return redirect()->route('books.index')->with('success', 'Author updated successfully.');
     }

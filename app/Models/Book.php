@@ -22,7 +22,8 @@ class Book extends Model
         'description',
         'isbn',
         'language',
-        'published_year'
+        'published_year',
+        'image'
     ];
 
     /**
