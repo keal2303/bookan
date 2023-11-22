@@ -26,6 +26,12 @@
     <label for="media">Media:</label><br>
     <input type="text" id="media" name="media"><br>
     <button type="submit">Submit</button>
+    <label for="genre_id">Genre</label>
+    <select id="genre_id" name="genre_id">
+        <option value="1">aaa</option>
+        <option value="2">bbb</option>
+        <option value="3">ccc</option>
+    </select><br>
 </form>
 <a href="{{ route('authors.index') }}">Back to list</a>
 </body>
