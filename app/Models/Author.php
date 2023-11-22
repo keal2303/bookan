@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static findOrFail(string $id)
+ * @property mixed|string $language to get string from key value
  */
 class Author extends Model
 {
@@ -32,7 +33,7 @@ class Author extends Model
      * Set is_alive to false is death_year is not null.
      * Else, is_alive will be true by default.
      */
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 

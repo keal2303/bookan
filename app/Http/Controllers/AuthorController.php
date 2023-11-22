@@ -35,8 +35,17 @@ class AuthorController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $languages = [
+            '1' => 'aaa',
+            '2' => 'bbb',
+            '3' => 'ccc',
+        ];
+
+        $selectedValue = $request->input('language');
+        $selectedLanguage = $languages[$selectedValue] ?? 'default';
         $author = new Author;
-        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'language', 'link', 'media'));
+        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'link', 'media'));
+        $author->language = $selectedLanguage;
         $author->save();
         return redirect()->route('authors.index')->with('success', 'Author created successfully.');
     }
