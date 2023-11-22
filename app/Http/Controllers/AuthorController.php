@@ -36,7 +36,7 @@ class AuthorController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $author = new Author;
-        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'nationality', 'link', 'media'));
+        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'language', 'link', 'media'));
         $author->save();
         return redirect()->route('authors.index')->with('success', 'Author created successfully.');
     }
@@ -65,7 +65,7 @@ class AuthorController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $author = Author::findOrFail($id);
-        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'nationality', 'link', 'media'));
+        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'language', 'link', 'media'));
         $author->save();
         return redirect()->route('authors.index')->with('success', 'Author updated successfully.');
     }

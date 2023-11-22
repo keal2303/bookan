@@ -16,8 +16,8 @@
     <input type="number" id="birth_year" name="birth_year"><br>
     <label for="death_year">Death Year <em>(If applicable)</em>:</label><br>
     <input type="number" id="death_year" name="death_year"><br>
-    <label for="nationality">Nationality</label><br>
-    <select id="nationality" name="nationality">
+    <label for="language">Language</label><br>
+    <select id="language" name="language">
         <option value="1">aaa</option>
         <option value="2">bbb</option>
         <option value="3">ccc</option>

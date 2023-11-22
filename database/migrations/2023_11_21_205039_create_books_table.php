@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('author_id');
-            $table->unsignedBigInteger('genre_id')->nullable();
+            $table->unsignedBigInteger('genre_id');
             $table->string('title');
             $table->string('description');
-            $table->string('isbn')->nullable();
-            $table->year('published_year');
+            $table->string('isbn')->unique();
+            $table->string('published_year');
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('authors');

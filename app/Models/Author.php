@@ -19,7 +19,7 @@ class Author extends Model
         'bio',
         'birth_year',
         'death_year',
-        'nationality',
+        'language',
         'link',
         'media'
     ];
