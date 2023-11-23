@@ -82,7 +82,9 @@ class BookController extends Controller
     public function edit(string $id): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $book = Book::findOrFail($id);
-        return view('books.edit', compact('book'));
+        $authors = Author::all();
+        $genres = Genre::all();
+        return view('books.edit', compact('book', 'authors', 'genres'));
     }
 
     /**
@@ -98,8 +100,11 @@ class BookController extends Controller
          */
         if ($request->hasFile('image'))
         {
-            $filename = $request->image->store('books_images', 'public');
-            $book->image = $filename;
+            $storage_path = 'public/books_images';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $path = $request->file('image')->storeAs($storage_path, $image_name);
+            $book->image = $image_name;
         }
 
         $book->save();
