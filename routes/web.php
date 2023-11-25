@@ -23,3 +23,4 @@ Route::get('/', function () {
 Route::resource('authors', AuthorController::class);
 Route::resource('books', BookController::class);
 Route::resource('genres', GenreController::class);
+Route::resource('reviews', \App\Http\Controllers\ReviewController::class);

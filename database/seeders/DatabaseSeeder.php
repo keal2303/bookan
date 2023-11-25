@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Review;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +20,6 @@ class DatabaseSeeder extends Seeder
         Genre::factory(5)->create();
         Author::factory(8)->create();
         Book::factory(10)->create();
+        Review::factory(50)->create();
     }
 }
