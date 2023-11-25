@@ -34,7 +34,20 @@ class GenreController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $genre = new Genre;
-        $genre->fill($request->only('name', 'description'));
+        $genre->fill($request->only('name', 'description', 'image'));
+
+        /**
+         * Create uploaded image logic.
+         */
+        if ($request->hasFIle('image'))
+        {
+            $storage_path = 'public/genres_images';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $request->file('image')->storeAs($storage_path, $image_name);
+            $genre->image = $image_name;
+        }
+
         $genre->save();
         return redirect()->route('genres.index')->with('success', 'Author created successfully.');
     }
@@ -63,7 +76,20 @@ class GenreController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $genre = Genre::findOrFail($id);
-        $genre->fill($request->only('name', 'description'));
+        $genre->fill($request->only('name', 'description', 'image'));
+
+        /**
+         * Update uploaded image logic.
+         */
+        if ($request->hasFile('image'))
+        {
+            $storage_path = 'public/genres_images';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $request->file('image')->storeAs($storage_path, $image_name);
+            $genre->image = $image_name;
+        }
+
         $genre->save();
         return redirect()->route('genres.index')->with('success', 'Author updated successfully.');
     }

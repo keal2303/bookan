@@ -44,7 +44,7 @@ class AuthorController extends Controller
         $selectedLanguage = $languages[$selectedValue] ?? 'default';
 
         $author = new Author;
-        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'link', 'media'));
+        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'link', 'media', 'image'));
         $author->language = $selectedLanguage;
 
 
