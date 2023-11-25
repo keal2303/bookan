@@ -15,7 +15,7 @@
         @endforeach
     </select><br>
     <label for="genre_id">Genre:</label><br>
-    <!-- TODO: Add search bar and action buttons-->
+    <!-- TODO: Add search bar and action buttons -->
     <select id="genre_id" name="genre_id">
         @foreach($genres as $genre)
             <option value="{{ $genre->id }}">{{ $genre->name }}</option>

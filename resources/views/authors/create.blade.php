@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Create New Author</h1>
-<form action="{{ route('authors.store') }}" method="POST">
+<form action="{{ route('authors.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name"><br>
@@ -26,12 +26,13 @@
     <label for="media">Media:</label><br>
     <input type="text" id="media" name="media"><br>
     <label for="genre_id">Genre:</label>
-    <!-- TODO: Add search bar and action buttons-->
+    <!-- TODO: Add search bar and action buttons -->
     <select id="genre_id" name="genre_id">
         @foreach($genres as $genre)
             <option value="{{ $genre->id }}">{{ $genre->name }}</option>
         @endforeach
     </select><br>
+    <input type="file" name="image">
     <button type="submit">Submit</button>
 </form>
 <a href="{{ route('authors.index') }}">Back to list</a>

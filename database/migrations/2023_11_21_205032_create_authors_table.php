@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('language');
             $table->string('link')->nullable();
             $table->string('media')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
 
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('set null');

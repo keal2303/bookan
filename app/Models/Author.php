@@ -23,7 +23,8 @@ class Author extends Model
         'death_year',
         'language',
         'link',
-        'media'
+        'media',
+        'image'
     ];
 
     protected $hidden = [
@@ -50,6 +51,6 @@ class Author extends Model
      */
     public function genre(): BelongsToMany
     {
-        return $this->belongsToMany(Genre::class);
+        return $this->belongsToMany(Genre::class, 'author_genre');
     }
 }

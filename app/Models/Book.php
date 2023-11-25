@@ -30,6 +30,8 @@ class Book extends Model
         'is_bookan_original'
         /** TODO:
          * created_by
+         * review_count
+         * reviews_note
          */
     ];
 

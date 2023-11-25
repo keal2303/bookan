@@ -26,7 +26,7 @@ class AuthorController extends Controller
      */
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $genres = Genre::all();
+        $genres = Genre::all(); // Used for select options in blade template.
         return view('authors.create', compact('genres'));
     }
 
@@ -46,6 +46,19 @@ class AuthorController extends Controller
         $author = new Author;
         $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'link', 'media'));
         $author->language = $selectedLanguage;
+
+
+        /**
+         * Create uploaded image logic.
+         */
+        if ($request->hasFile('image'))
+        {
+            $storage_path = 'public/authors_images';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $request->file('image')->storeAs($storage_path, $image_name);
+            $author->image = $image_name;
+        }
         $author->save();
         return redirect()->route('authors.index')->with('success', 'Author created successfully.');
     }
@@ -64,8 +77,9 @@ class AuthorController extends Controller
      */
     public function edit(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        $genres = Genre::all(); // Used for select options in blade template
         $author = Author::findOrFail($id);
-        return view('authors.edit', compact('author'));
+        return view('authors.edit', compact('author', 'genres'));
     }
 
     /**
@@ -74,7 +88,20 @@ class AuthorController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $author = Author::findOrFail($id);
-        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'language', 'link', 'media'));
+        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'language', 'link', 'media', 'image'));
+
+        /**
+         * Update uploaded image logic.
+         */
+        if ($request->hasFile('image'))
+        {
+            $storage_path = 'public/authors_images';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $request->file('image')->storeAs($storage_path, $image_name);
+            $author->image = $image_name;
+        }
+
         $author->save();
         return redirect()->route('authors.index')->with('success', 'Author updated successfully.');
     }

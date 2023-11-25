@@ -28,8 +28,8 @@ class BookController extends Controller
      */
     public function create(): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        $authors = Author::all();
-        $genres = Genre::all();
+        $authors = Author::all(); // Used for select options in blade template.
+        $genres = Genre::all(); // Same here.
         return view('books.create', compact( 'authors', 'genres'));
     }
 
@@ -59,7 +59,7 @@ class BookController extends Controller
             $storage_path = 'public/books_images';
             $image = $request->file('image');
             $image_name = $image->getClientOriginalName();
-            $path = $request->file('image')->storeAs($storage_path, $image_name);
+            $request->file('image')->storeAs($storage_path, $image_name);
             $book->image = $image_name;
         }
 
@@ -82,8 +82,8 @@ class BookController extends Controller
     public function edit(string $id): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $book = Book::findOrFail($id);
-        $authors = Author::all();
-        $genres = Genre::all();
+        $authors = Author::all(); // Used for select options in blade template.
+        $genres = Genre::all(); // Same here.
         return view('books.edit', compact('book', 'authors', 'genres'));
     }
 
@@ -103,7 +103,7 @@ class BookController extends Controller
             $storage_path = 'public/books_images';
             $image = $request->file('image');
             $image_name = $image->getClientOriginalName();
-            $path = $request->file('image')->storeAs($storage_path, $image_name);
+            $request->file('image')->storeAs($storage_path, $image_name);
             $book->image = $image_name;
         }
 

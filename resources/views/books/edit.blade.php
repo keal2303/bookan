@@ -5,11 +5,11 @@
 </head>
 <body>
 <h1>Edit Book</h1>
-<form action="{{ route('books.update', $book->id) }}" method="POST">
+<form action="{{ route('books.update', $book->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <label for="author_id">Author:</label><br>
-    <!-- TODO: Add search bar and action buttons-->
+    <!-- TODO: Add search bar and action buttons -->
     <select id="author_id" name="author_id">
         <!-- Displays the recorded option value before the list of authors. -->
         <option value="{{ $book->author_id }}">{{ $book->author ? $book->author->name : 'N/A' }}</option>
@@ -18,9 +18,10 @@
         @endforeach
     </select><br>
     <label for="genre_id">Genre:</label><br>
-    <!-- TODO: Add search bar and action buttons-->
+    <!-- TODO: Add search bar and action buttons -->
+    <!-- TODO: Add multiple selection -->
     <select id="genre_id" name="genre_id">
-        <!-- Checks if there are genres and list them -->
+        <!-- Checks if there are genres and list them. -->
         @if($book->genres && $book->genres->count() > 0)
             @foreach($book->genres as $genre)
                 <option value="{{ $genre->id }}" {{ $book->genres->contains($genre) ? 'selected' : '' }}>
@@ -31,7 +32,7 @@
             <option value="">N/A</option>
         @endif
 
-        <!-- Lists all genres for selection -->
+        <!-- Lists all genres for selection. -->
         @foreach($genres as $genre)
             <option value="{{ $genre->id }}">{{ $genre->name }}</option>
         @endforeach
@@ -50,7 +51,7 @@
     </select><br>
     <label for="published_year">Published Year:</label><br>
     <input type="number" id="published_year" name="published_year" value="{{ $book->published_year }}"><br>
-    <!-- Displays the image associated to the book if it exists. -->
+    <!-- Displays the book associated image if it exists. -->
     @if ($book->image)
         <img src="{{ asset('storage/books_images/' . $book->image) }}" alt="Image of the book">
     @else
