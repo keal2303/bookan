@@ -42,42 +42,12 @@ class ReviewController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
-    {
-        $review = Review::findOrFail($id);
-        return view('reviews.show', compact('review'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
-    {
-        $review = Review::findOrFail($id);
-        return view('reviews.edit', compact('review'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id): RedirectResponse
-    {
-        $review = Review::findOrFail($id);
-        $review->fill($request->only('message', 'review_note'));
-        $review->save();
-        // TODO: Change redirection to book/:id
-        return redirect()->route('reviews.index')->with('success', 'Review updated successfully,');
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id): RedirectResponse
     {
         $review = Review::findOrFail($id);
         $review->delete();
-        return redirect()->route('reviews.index')->with('success', 'Review deleted successfully');
+        return redirect()->route('books.index')->with('success', 'Review deleted successfully');
     }
 }

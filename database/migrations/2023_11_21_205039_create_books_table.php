@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('author_id')->nullable();;
             $table->unsignedBigInteger('genre_id')->nullable();;
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('isbn')->unique();
             $table->string('language');
             $table->string('published_year');

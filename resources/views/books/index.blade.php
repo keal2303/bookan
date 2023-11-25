@@ -17,6 +17,8 @@
                 @method('DELETE')
                 <button type="submit">Delete</button>
             </form>
+            Review Count: {{ $book->review_count }}
+            Average Review Note: {{ $book->reviews_note }}
         </li>
     @endforeach
 </ul>

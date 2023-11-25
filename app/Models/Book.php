@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static findOrFail(string $id)
@@ -45,10 +46,35 @@ class Book extends Model
     }
 
     /**
-     * Get the genre.
+     * Get the genre(s).
      */
     public function genre(): BelongsToMany
     {
         return $this->belongsToMany(Genre::class, 'book_genre');
     }
+
+    /**
+     * Get the review(s).
+     */
+    public function reviews(): HasMany
+    {
+        return $this->HasMany(Review::class);
+    }
+
+    /**
+     * Get review(s) count.
+     */
+    public function calculateReviewCount()
+    {
+        return $this->reviews()->count();
+    }
+
+    /**
+     * Get review average note.
+     */
+    public function calculateAverageReviewNote()
+    {
+        return $this->reviews()->avg('review_note');
+    }
+
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('genre_id')->nullable();
             $table->string('name')->unique();
-            $table->string('bio');
+            $table->text('bio');
             $table->string('birth_year')->nullable();
             $table->string('death_year')->nullable();
             $table->boolean('is_alive')->default(true);

@@ -47,7 +47,7 @@ class Author extends Model
     }
 
     /**
-     * Get the genre.
+     * Get the genre(s).
      */
     public function genre(): BelongsToMany
     {

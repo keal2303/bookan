@@ -72,7 +72,8 @@ class BookController extends Controller
      */
     public function show(string $id): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        $book = Book::findOrFail($id);
+        // $book = Book::findOrFail($id);
+        $book = Book::with('reviews')->findOrFail($id);
         return view('books.show', compact('book'));
     }
 

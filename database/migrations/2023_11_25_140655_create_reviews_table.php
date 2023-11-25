@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('book_id');
-            $table->string('message');
+            $table->text('message');
             $table->enum('review_note', ['0', '1', '2', '3', '4', '5']);
             $table->timestamps();
         });

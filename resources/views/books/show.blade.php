@@ -4,8 +4,11 @@
         <title>Show Book</title>
     </head>
 <body>
-<button onclick="openModal()">View Book Details</button>
-
+<h1>Book: {{ $book->title }}</h1>
+<p>{{ $book->description }}</p>
+Review Count: {{ $book->calculateReviewCount() }}
+Average Review Note: {{ number_format($book->calculateAverageReviewNote(), 2) }}
+<button onclick="openModal()">View Reviews</button>
 <div id="bookModal" style="
         display:none;
         position: fixed;
@@ -17,9 +20,16 @@
         justify-content: center;
         align-items: center;">
     <div style="background-color: white; padding: 20px; border-radius: 5px;">
-        <h1>Book: {{ $book->title }}</h1>
-        <p>{{ $book->description }}</p>
-        <!-- Review Modal -->
+        <h3>Reviews:</h3>
+        @foreach($book->reviews as $review)
+            <p>Username {{ $review->review_note }}</p>
+            <p>{{$review->message }}</p>
+            <form action="{{ route('reviews.destroy', $review->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Delete</button>
+            </form>
+        @endforeach
         <button onclick="closeModal()">Close</button>
     </div>
 </div>
