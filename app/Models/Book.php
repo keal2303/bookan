@@ -30,11 +30,7 @@ class Book extends Model
 
     protected $hidden = [
         'is_bookan_original'
-        /** TODO:
-         * created_by
-         * review_count
-         * reviews_note
-         */
+        // TODO: Add created_by field
     ];
 
     /**

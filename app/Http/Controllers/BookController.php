@@ -11,6 +11,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class BookController extends Controller
 {
@@ -38,33 +40,53 @@ class BookController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $languages = [
-            '1' => 'English',
-            '2' => 'French',
-            '3' => 'Other',
-        ];
-        $selectedValue = $request->input('language');
-        $selectedLanguage = $languages[$selectedValue] ?? 'default';
+        try {
+            /**
+             * Validation
+             */
 
-        $book = new Book;
-        $book->fill($request->only('author_id', 'genre_id', 'title', 'description', 'isbn', 'published_year'));
-        $book->language = $selectedLanguage;
+            $validatedData = $request->validate([
+                'author_id' => 'nullable',
+                'genre_id' => 'nullable',
+                'title' => 'required|max:255',
+                'description' => 'required',
+                'isbn' => 'nullable|max:13',
+                'published_year' => 'required|digits:4',
+                'image' => 'nullable|image|max:2048'
+            ]);
+
+            $languages = [
+                '1' => 'English',
+                '2' => 'French',
+                '3' => 'Other',
+            ];
+            $selectedValue = $request->input('language');
+            $selectedLanguage = $languages[$selectedValue] ?? 'default';
+
+            $book = new Book;
+            $book->fill($validatedData);
+            $book->language = $selectedLanguage;
 
 
-        /**
-         * Create uploaded image logic.
-         */
-        if ($request->hasFile('image'))
-        {
-            $storage_path = 'public/books_images';
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName();
-            $request->file('image')->storeAs($storage_path, $image_name);
-            $book->image = $image_name;
+            /**
+             * Create uploaded image logic.
+             */
+            if ($request->hasFile('image'))
+            {
+                $storage_path = 'public/books_images';
+                $image = $request->file('image');
+                $image_name = $image->getClientOriginalName();
+                $request->file('image')->storeAs($storage_path, $image_name);
+                $book->image = $image_name;
+            }
+
+            $book->save();
+            return redirect()->route('books.index')->with('success', 'Author created successfully.');
+
+        } catch (\Exception $e) {
+            Log::error('Error in Book creation: ' . $e->getMessage());
+            return back()->with('error', 'Failed to create the book.');
         }
-
-        $book->save();
-        return redirect()->route('books.index')->with('success', 'Author created successfully.');
     }
 
     /**
@@ -93,23 +115,42 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id): RedirectResponse
     {
-        $book = Book::findOrFail($id);
-        $book->fill($request->only('author_id', 'genre_id', 'title', 'description', 'isbn', 'published_year', 'image'));
+        try {
+            /**
+             * Validation
+             */
+            $validatedData = $request->validate([
+                'author_id' => 'nullable',
+                'genre_id' => 'nullable',
+                'title' => 'required|max:255',
+                'description' => 'required',
+                'isbn' => 'nullable|max:13',
+                'published_year' => 'required|digits:4',
+                'image' => 'nullable|image|max:2048'
+            ]);
+            $book = Book::findOrFail($id);
+            $book->fill($validatedData);
 
-        /**
-         * Update uploaded image logic.
-         */
-        if ($request->hasFile('image'))
-        {
-            $storage_path = 'public/books_images';
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName();
-            $request->file('image')->storeAs($storage_path, $image_name);
-            $book->image = $image_name;
+            /**
+             * Update uploaded image logic.
+             */
+            if ($request->hasFile('image'))
+            {
+                $storage_path = 'public/books_images';
+                $image = $request->file('image');
+                $image_name = $image->getClientOriginalName();
+                $request->file('image')->storeAs($storage_path, $image_name);
+                $book->image = $image_name;
+            }
+
+            $book->save();
+            return redirect()->route('books.index')->with('success', 'Author updated successfully.');
+
+        } catch (\Exception $e) {
+            Log::error('Error in Book update: ' . $e->getMessage());
+            return back()->with('error', 'Failed to update the book.');
         }
 
-        $book->save();
-        return redirect()->route('books.index')->with('success', 'Author updated successfully.');
     }
 
     /**

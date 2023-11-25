@@ -5,6 +5,12 @@
 </head>
 <body>
 <h1>Create Book</h1>
+<!-- Flash Message -->
+@if(session('error'))
+    <div style="color: red;">
+        {{ session('error') }}
+    </div>
+@endif
 <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <label for="author_id">Author:</label><br>
