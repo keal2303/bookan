@@ -26,6 +26,13 @@ class Book extends Model
         'image'
     ];
 
+    protected $hidden = [
+        'is_bookan_original'
+        /** TODO:
+         * created_by
+         */
+    ];
+
     /**
      * Get the author.
      */

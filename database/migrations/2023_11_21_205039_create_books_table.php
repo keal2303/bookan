@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('language');
             $table->string('published_year');
             $table->string('image')->nullable();
+            $table->string('is_bookan_original')->default(false);
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('set null');
