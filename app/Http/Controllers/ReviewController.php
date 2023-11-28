@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Review;
 
+use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ReviewController extends Controller
 {
@@ -18,7 +20,7 @@ class ReviewController extends Controller
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $reviews = Review::all();
-        return view('reviews.index', compact('reviews'));
+        return view('books.index', compact('reviews'));
     }
 
     /**
@@ -34,11 +36,26 @@ class ReviewController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $review = new Review;
-        $review->fill($request->only('book_id', 'message', 'review_note'));
-        $review->save();
-        // TODO: Change redirection to book/:id
-        return redirect()->route('reviews.index')->with('success', 'Review created successfully.');
+        try
+        {
+            /**
+             * Validate the data to create.
+             */
+            $validatedData = $request->validate([
+                'book_id' => 'required',
+                'message' => 'required',
+                'review_note' => 'required'
+            ]);
+
+            $review = new Review;
+            $review->fill($validatedData);
+            $review->save();
+            // TODO: Change redirection to book/:id
+            return redirect()->route('books.index')->with('success', 'Review created successfully.');
+        } catch (Exception $e) {
+            Log::error('Error in Genre update: ' . $e->getMessage());
+            return back()->with('error', 'Failed to create the review.');
+        }
     }
 
     /**

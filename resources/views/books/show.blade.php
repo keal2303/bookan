@@ -22,9 +22,15 @@ Average Review Note: {{ number_format($book->calculateAverageReviewNote(), 2) }}
         align-items: center;">
     <div style="background-color: white; padding: 20px; border-radius: 5px;">
         <h3>Add review to {{ $book->title }} by {{ $book->author->name }}</h3>
+        <!-- Flash Message -->
+        @if(session('error'))
+            <div style="color: red;">
+                {{ session('error') }}
+            </div>
+        @endif
         <form action="{{ route('reviews.store') }}" method="POST">
             @csrf
-            <select name="book_id" disabled>
+            <select name="book_id">
                 <option value="{{ $book->id }}">{{ $book->title }}</option>
             </select><br>
             <label for="message">Message:</label><br>
