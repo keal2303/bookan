@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Genre;
+
+use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class GenreController extends Controller
 {
@@ -33,23 +36,38 @@ class GenreController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $genre = new Genre;
-        $genre->fill($request->only('name', 'description', 'image'));
-
-        /**
-         * Create uploaded image logic.
-         */
-        if ($request->hasFIle('image'))
+        try
         {
-            $storage_path = 'public/genres_images';
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName();
-            $request->file('image')->storeAs($storage_path, $image_name);
-            $genre->image = $image_name;
-        }
+            /**
+             * Validate the data to create.
+             */
+            $validatedData = $request->validate([
+                'name' => 'unique:genres|required|max:255',
+                'description' => 'required',
+                'image' => 'nullable|image|max:2048'
+            ]);
 
-        $genre->save();
-        return redirect()->route('genres.index')->with('success', 'Author created successfully.');
+            $genre = new Genre;
+            $genre->fill($validatedData);
+
+            /**
+             * Create uploaded image logic.
+             */
+            if ($request->hasFIle('image'))
+            {
+                $storage_path = 'public/genres_images';
+                $image = $request->file('image');
+                $image_name = $image->getClientOriginalName();
+                $request->file('image')->storeAs($storage_path, $image_name);
+                $genre->image = $image_name;
+            }
+
+            $genre->save();
+            return redirect()->route('genres.index')->with('success', 'Author created successfully.');
+        } catch (Exception $e) {
+            Log::error('Error in Genre creation: ' . $e->getMessage());
+            return back()->with('error', 'Failed to create the genre.');
+        }
     }
 
     /**
@@ -75,23 +93,38 @@ class GenreController extends Controller
      */
     public function update(Request $request, string $id): RedirectResponse
     {
-        $genre = Genre::findOrFail($id);
-        $genre->fill($request->only('name', 'description', 'image'));
-
-        /**
-         * Update uploaded image logic.
-         */
-        if ($request->hasFile('image'))
+        try
         {
-            $storage_path = 'public/genres_images';
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName();
-            $request->file('image')->storeAs($storage_path, $image_name);
-            $genre->image = $image_name;
-        }
+            /**
+             * Validate the data to create.
+             */
+            $validatedData = $request->validate([
+                'name' => 'unique:genres|required|max:255',
+                'description' => 'required',
+                'image' => 'nullable|image|max:2048'
+            ]);
 
-        $genre->save();
-        return redirect()->route('genres.index')->with('success', 'Author updated successfully.');
+            $genre = Genre::findOrFail($id);
+
+            $genre->fill($validatedData);
+            /**
+             * Update uploaded image logic.
+             */
+            if ($request->hasFile('image'))
+            {
+                $storage_path = 'public/genres_images';
+                $image = $request->file('image');
+                $image_name = $image->getClientOriginalName();
+                $request->file('image')->storeAs($storage_path, $image_name);
+                $genre->image = $image_name;
+            }
+
+            $genre->save();
+            return redirect()->route('genres.index')->with('success', 'Author updated successfully.');
+        } catch (Exception $e) {
+            Log::error('Error in Genre update: ' . $e->getMessage());
+            return back()->with('error', 'Failed to update the genre.');
+        }
     }
 
     /**
