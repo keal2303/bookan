@@ -116,7 +116,7 @@ class AuthorController extends Controller
              * Validate the data to update.
              */
             $validatedData = $request->validate([
-                'genre_id' => 'nullable',
+                'genre_id' => 'required',
                 'name' => 'unique:authors|required|max:255',
                 'bio' => 'required',
                 'birth_year' => 'nullable',

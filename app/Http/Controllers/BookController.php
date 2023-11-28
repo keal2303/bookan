@@ -48,8 +48,8 @@ class BookController extends Controller
              */
 
             $validatedData = $request->validate([
-                'author_id' => 'nullable',
-                'genre_id' => 'nullable',
+                'author_id' => 'required',
+                'genre_id' => 'required',
                 'title' => 'required|max:255',
                 'description' => 'required',
                 'isbn' => 'nullable|max:13',
