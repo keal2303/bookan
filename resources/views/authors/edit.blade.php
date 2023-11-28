@@ -5,6 +5,12 @@
 </head>
 <body>
 <h1>Edit Author</h1>
+<!-- Flash Message -->
+@if(session('error'))
+    <div style="color: red;">
+        {{ session('error') }}
+    </div>
+@endif
 <form action="{{ route('authors.update', $author->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')

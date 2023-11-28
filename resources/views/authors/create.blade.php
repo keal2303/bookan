@@ -5,6 +5,12 @@
 </head>
 <body>
 <h1>Create New Author</h1>
+<!-- Flash Message -->
+@if(session('error'))
+    <div style="color: red;">
+        {{ session('error') }}
+    </div>
+@endif
 <form action="{{ route('authors.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <label for="name">Name:</label><br>

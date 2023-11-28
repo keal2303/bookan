@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Genre;
 
+use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AuthorController extends Controller
 {
@@ -35,32 +37,53 @@ class AuthorController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $languages = [
-            '1' => 'English',
-            '2' => 'French',
-            '3' => 'Other',
-        ];
-        $selectedValue = $request->input('language');
-        $selectedLanguage = $languages[$selectedValue] ?? 'default';
-
-        $author = new Author;
-        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'link', 'media', 'image'));
-        $author->language = $selectedLanguage;
-
-
-        /**
-         * Create uploaded image logic.
-         */
-        if ($request->hasFile('image'))
+        try
         {
-            $storage_path = 'public/authors_images';
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName();
-            $request->file('image')->storeAs($storage_path, $image_name);
-            $author->image = $image_name;
+            /**
+             * Validate the data to create.
+             */
+            $validatedData = $request->validate([
+                'genre_id' => 'nullable',
+                'name' => 'required|unique:authors|max:255',
+                'bio' => 'required',
+                'birth_year' => 'nullable',
+                'death_year' => 'nullable',
+                'language' => 'required',
+                'link' => 'nullable',
+                'media' => 'nullable',
+                'image' => 'nullable|image|max:2048'
+            ]);
+
+            $languages = [
+                '1' => 'English',
+                '2' => 'French',
+                '3' => 'Other',
+            ];
+            $selectedValue = $request->input('language');
+            $selectedLanguage = $languages[$selectedValue] ?? 'default';
+
+            $author = new Author;
+            $author->fill($validatedData);
+            $author->language = $selectedLanguage;
+
+
+            /**
+             * Create uploaded image logic.
+             */
+            if ($request->hasFile('image'))
+            {
+                $storage_path = 'public/authors_images';
+                $image = $request->file('image');
+                $image_name = $image->getClientOriginalName();
+                $request->file('image')->storeAs($storage_path, $image_name);
+                $author->image = $image_name;
+            }
+            $author->save();
+            return redirect()->route('authors.index')->with('success', 'Author created successfully.');
+        } catch(Exception $e) {
+            Log::error('Error in Author creation: ' . $e->getMessage());
+            return back()->with('error', 'Failed to create the author.');
         }
-        $author->save();
-        return redirect()->route('authors.index')->with('success', 'Author created successfully.');
     }
 
     /**
@@ -87,23 +110,44 @@ class AuthorController extends Controller
      */
     public function update(Request $request, string $id): RedirectResponse
     {
-        $author = Author::findOrFail($id);
-        $author->fill($request->only('genre_id', 'name', 'bio', 'birth_year', 'death_year', 'language', 'link', 'media', 'image'));
-
-        /**
-         * Update uploaded image logic.
-         */
-        if ($request->hasFile('image'))
+        try
         {
-            $storage_path = 'public/authors_images';
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName();
-            $request->file('image')->storeAs($storage_path, $image_name);
-            $author->image = $image_name;
-        }
+            /**
+             * Validate the data to update.
+             */
+            $validatedData = $request->validate([
+                'genre_id' => 'nullable',
+                'name' => 'required|unique:authors|max:255',
+                'bio' => 'required',
+                'birth_year' => 'nullable',
+                'death_year' => 'nullable',
+                'language' => 'required',
+                'link' => 'nullable',
+                'media' => 'nullable',
+                'image' => 'nullable|image|max:2048'
+            ]);
 
-        $author->save();
-        return redirect()->route('authors.index')->with('success', 'Author updated successfully.');
+            $author = Author::findOrFail($id);
+            $author->fill($validatedData);
+
+            /**
+             * Update uploaded image logic.
+             */
+            if ($request->hasFile('image'))
+            {
+                $storage_path = 'public/authors_images';
+                $image = $request->file('image');
+                $image_name = $image->getClientOriginalName();
+                $request->file('image')->storeAs($storage_path, $image_name);
+                $author->image = $image_name;
+            }
+
+            $author->save();
+            return redirect()->route('authors.index')->with('success', 'Author updated successfully.');
+        } catch (Exception $e) {
+            Log::error('Error in Author update: ' . $e->getMessage());
+            return back()->with('error', 'Failed to update the author.');
+        }
     }
 
     /**

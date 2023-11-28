@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Author;
 use App\Models\Genre;
 
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -40,9 +41,10 @@ class BookController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        try {
+        try
+        {
             /**
-             * Validation
+             * Validate the data to create.
              */
 
             $validatedData = $request->validate([
@@ -83,7 +85,7 @@ class BookController extends Controller
             $book->save();
             return redirect()->route('books.index')->with('success', 'Author created successfully.');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error in Book creation: ' . $e->getMessage());
             return back()->with('error', 'Failed to create the book.');
         }
@@ -115,16 +117,17 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id): RedirectResponse
     {
-        try {
+        try
+        {
             /**
-             * Validation
+             * Validate the data to update.
              */
             $validatedData = $request->validate([
                 'author_id' => 'nullable',
                 'genre_id' => 'nullable',
                 'title' => 'required|max:255',
                 'description' => 'required',
-                'isbn' => 'nullable|max:13',
+                'isbn' => 'required|max:13',
                 'published_year' => 'required|digits:4',
                 'image' => 'nullable|image|max:2048'
             ]);
@@ -146,7 +149,7 @@ class BookController extends Controller
             $book->save();
             return redirect()->route('books.index')->with('success', 'Author updated successfully.');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error in Book update: ' . $e->getMessage());
             return back()->with('error', 'Failed to update the book.');
         }
