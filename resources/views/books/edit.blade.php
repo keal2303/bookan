@@ -25,7 +25,6 @@
     </select><br>
     <label for="genre_id">Genre:</label><br>
     <!-- TODO: Add search bar and action buttons -->
-    <!-- TODO: Add multiple selection -->
     <select id="genre_id" name="genre_id">
         <!-- Checks if there are genres and list them. -->
         @if($book->genres && $book->genres->count() > 0)

@@ -34,7 +34,6 @@
     <input type="text" id="media" name="media"><br>
     <label for="genre_id">Genre:</label>
     <!-- TODO: Add search bar and action buttons -->
-    <!-- TODO: Add multiple selection -->
     <select id="genre_id" name="genre_id">
         <!-- Checks if there are genres and list them. -->
         @if($author->genres && $author->genres->count() > 0)

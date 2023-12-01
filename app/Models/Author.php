@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static findOrFail(string $id)
@@ -49,8 +48,8 @@ class Author extends Model
     /**
      * Get the genre(s).
      */
-    public function genre(): BelongsToMany
+    public function genre(): BelongsTo
     {
-        return $this->belongsToMany(Genre::class, 'author_genre');
+        return $this->belongsTo(Genre::class);
     }
 }
