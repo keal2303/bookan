@@ -19,6 +19,7 @@
     <select id="author_id" name="author_id">
         <!-- Displays the recorded option value before the list of authors. -->
         <option value="{{ $book->author_id }}">{{ $book->author ? $book->author->name : 'N/A' }}</option>
+        <!-- Then displays the rest of the list. -->
         @foreach($authors as $author)
             <option value="{{ $author->id }}">{{ $author->name }}</option>
         @endforeach
@@ -26,18 +27,9 @@
     <label for="genre_id">Genre:</label><br>
     <!-- TODO: Add search bar and action buttons -->
     <select id="genre_id" name="genre_id">
-        <!-- Checks if there are genres and list them. -->
-        @if($book->genres && $book->genres->count() > 0)
-            @foreach($book->genres as $genre)
-                <option value="{{ $genre->id }}" {{ $book->genres->contains($genre) ? 'selected' : '' }}>
-                    {{ $genre->name }}
-                </option>
-            @endforeach
-        @else
-            <option value="">N/A</option>
-        @endif
-
-        <!-- Lists all genres for selection. -->
+        <!-- Displays the recorded option value before the list of genres. -->
+        <option value="{{ $book->genre_id }}">{{ $book->genre ? $book->genre->name : 'N/A' }}</option>
+        <!-- Then displays the rest of the list. -->
         @foreach($genres as $genre)
             <option value="{{ $genre->id }}">{{ $genre->name }}</option>
         @endforeach

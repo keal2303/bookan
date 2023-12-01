@@ -35,18 +35,9 @@
     <label for="genre_id">Genre:</label>
     <!-- TODO: Add search bar and action buttons -->
     <select id="genre_id" name="genre_id">
-        <!-- Checks if there are genres and list them. -->
-        @if($author->genres && $author->genres->count() > 0)
-            @foreach($author->genres as $genre)
-                <option value="{{ $genre->id }}" {{ $author->genres->contains($genre) ? 'selected' : ''  }}>
-                    {{ $genre->name }}
-                </option>
-            @endforeach
-        @else
-            <option value="">N/A</option>
-        @endif
-
-        <!-- Lists all genres for selection. -->
+        <!-- Displays the recorded option value before the list of genres. -->
+        <option value="{{ $author->genre_id }}">{{ $author->genre ? $author->genre->name : 'N/A' }}</option>
+        <!-- Then displays the rest of the list. -->
         @foreach($genres as $genre)
             <option value="{{ $genre->id }}">{{ $genre->name }}</option>
         @endforeach
