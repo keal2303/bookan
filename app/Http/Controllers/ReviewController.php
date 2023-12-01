@@ -50,8 +50,7 @@ class ReviewController extends Controller
             $review = new Review;
             $review->fill($validatedData);
             $review->save();
-            // TODO: Change redirection to book/:id
-            return redirect()->route('books.index')->with('success', 'Review created successfully.');
+            return redirect()->route('books.show', ['id' => $validatedData['book_id']])->with('success', 'Review created successfully.');
         } catch (Exception $e) {
             Log::error('Error in Genre update: ' . $e->getMessage());
             return back()->with('error', 'Failed to create the review.');
