@@ -34,7 +34,7 @@ Average Review Note: {{ number_format($book->calculateAverageReviewNote(), 2) }}
                 <option value="{{ $book->id }}">{{ $book->title }}</option>
             </select><br>
             <label for="message">Message:</label><br>
-            <textarea name="message" cols="30" rows="10"></textarea><br>
+            <textarea id="message" name="message" cols="30" rows="10"></textarea><br>
             <select name="review_note">
                 <option value="0">-</option>
                 <option value="1">⭐️</option>
@@ -73,6 +73,14 @@ Average Review Note: {{ number_format($book->calculateAverageReviewNote(), 2) }}
     </div>
 </div>
 <a href="{{ route('books.index') }}">Back to list</a>
+<script src="{{asset('ckeditor5/build/ckeditor.js')}}"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#message' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 </body>
     <script>
         function openModal() {
