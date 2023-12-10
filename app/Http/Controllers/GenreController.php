@@ -95,16 +95,16 @@ class GenreController extends Controller
     {
         try
         {
+            $genre = Genre::findOrFail($id);
+
             /**
-             * Validate the data to create.
+             * Validate the data to update.
              */
             $validatedData = $request->validate([
-                'name' => 'unique:genres|required|max:255',
+                'name' => 'required|max:255|unique:genres,name,' . $genre->id,
                 'description' => 'required|safe_html',
                 'image' => 'nullable|image|max:2048'
             ]);
-
-            $genre = Genre::findOrFail($id);
 
             $genre->fill($validatedData);
             /**
