@@ -20,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /**
+         * Extends validation rules to allow specific HTML tags.
+         */
         Validator::extend('safe_html', function ($attribute, $value)
         {
             $allowed = '<br><p></p><i></i><strong></strong><a></a><ul></ul><ol></ol><li></li><blockquote></blockquote><figure></figure><table></table><tbody></tbody><tr></tr><td></td>';
