@@ -112,12 +112,14 @@ class AuthorController extends Controller
     {
         try
         {
+            $author = Author::findOrFail($id);
+
             /**
              * Validate the data to update.
              */
             $validatedData = $request->validate([
                 'genre_id' => 'required',
-                'name' => 'unique:authors|required|max:255',
+                'name' => 'required|max:255|unique:authors,name,' . $author->id,
                 'bio' => 'required|safe_html',
                 'birth_year' => 'nullable',
                 'death_year' => 'nullable',
@@ -127,7 +129,7 @@ class AuthorController extends Controller
                 'image' => 'nullable|image|max:2048'
             ]);
 
-            $author = Author::findOrFail($id);
+
             $author->fill($validatedData);
 
             /**
