@@ -62,7 +62,7 @@ Average Review Note: {{ number_format($book->calculateAverageReviewNote(), 2) }}
         <h3>Reviews:</h3>
         @foreach($book->reviews as $review)
             <p>Username {{ $review->review_note }}</p>
-            <p>{{$review->message }}</p>
+            <p>{!! $review->message !!}</p>
             <form action="{{ route('reviews.destroy', $review->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
