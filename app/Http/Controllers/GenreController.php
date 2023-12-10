@@ -100,7 +100,7 @@ class GenreController extends Controller
              */
             $validatedData = $request->validate([
                 'name' => 'unique:genres|required|max:255',
-                'description' => 'required',
+                'description' => 'required|safe_html',
                 'image' => 'nullable|image|max:2048'
             ]);
 
