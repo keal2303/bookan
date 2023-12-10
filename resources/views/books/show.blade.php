@@ -5,7 +5,7 @@
     </head>
 <body>
 <h1>Book: {{ $book->title }}</h1>
-<p>{{ $book->description }}</p>
+<p>{!! $book->description !!}</p>
 Review Count: {{ $book->calculateReviewCount() }}
 Average Review Note: {{ number_format($book->calculateAverageReviewNote(), 2) }}
 <button onclick="openModal()">View Reviews</button>

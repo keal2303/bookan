@@ -51,7 +51,7 @@ class BookController extends Controller
                 'author_id' => 'required',
                 'genre_id' => 'required',
                 'title' => 'required|max:255',
-                'description' => 'required',
+                'description' => 'required|safe_html',
                 'isbn' => 'nullable|max:13',
                 'published_year' => 'required|digits:4',
                 'image' => 'nullable|image|max:2048'
@@ -126,7 +126,7 @@ class BookController extends Controller
                 'author_id' => 'nullable',
                 'genre_id' => 'nullable',
                 'title' => 'required|max:255',
-                'description' => 'required',
+                'description' => 'required|safe_html',
                 'isbn' => 'required|max:13',
                 'published_year' => 'required|digits:4',
                 'image' => 'nullable|image|max:2048'
