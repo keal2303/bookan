@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @method static findOrFail(string $id)
  * @method static inRandomOrder()
+ * @method static when(mixed $search, \Closure $param)
  * @property mixed|string $language to get string from language key value
+ * @property mixed|string $image
  */
 class Book extends Model
 {

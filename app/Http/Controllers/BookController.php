@@ -20,9 +20,20 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View|\Illuminate\Foundation\Application|Factory|Application
+    public function index(Request $request): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        $books = Book::all();
+        // $books = Book::all();
+
+        /*
+         * Search query
+         */
+        $search = $request->get('search');
+        $books = Book::when($search, function($sql) use ($search) {
+            $sql->where('title', 'LIKE', '%' . $search . '%');
+        })->paginate(5);
+
+
+
         return view('books.index', compact('books'));
     }
 

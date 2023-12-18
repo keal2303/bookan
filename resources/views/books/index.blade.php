@@ -6,6 +6,11 @@
 <body>
 <h1>Books</h1>
 <a href="{{ route('books.create') }}">Create New Book</a>
+<form action="{{ route('books.index') }}" method="GET">
+    <input type="text" name="search" placeholder="Search for books...">
+    <button type="submit">Search</button>
+</form>
+
 <ul>
     @foreach($books as $book)
         <li>
