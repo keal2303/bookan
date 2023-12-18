@@ -17,9 +17,12 @@ class GenreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $genres = Genre::all();
+        $search = $request->get('search');
+        $genres = Genre::when($search, function ($sql) use ($search) {
+            $sql->where('name', 'LIKE', '%' . $search . '%');
+        })->paginate(10);
         return view('genres.index', compact('genres'));
     }
 
