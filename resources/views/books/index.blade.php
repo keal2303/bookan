@@ -10,7 +10,6 @@
     <input type="text" name="search" placeholder="Search for books...">
     <button type="submit">Search</button>
 </form>
-
 <ul>
     @foreach($books as $book)
         <li>

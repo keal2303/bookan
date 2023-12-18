@@ -6,6 +6,10 @@
 <body>
 <h1>Authors</h1>
 <a href="{{ route('authors.create') }}">Create New Author</a>
+<form action="{{ route('authors.index') }}" method="GET">
+    <input type="text" name="search" placeholder="Search for authors...">
+    <button type="submit">Search</button>
+</form>
 <ul>
     @foreach ($authors as $author)
         <li>

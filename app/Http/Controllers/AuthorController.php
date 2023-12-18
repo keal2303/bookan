@@ -17,9 +17,12 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $authors = Author::all();
+        $search = $request->get('search');
+        $authors = Author::when($search, function ($sql) use ($search) {
+            $sql->where('name', 'LIKE', '%' . $search . '%');
+        })->paginate(10);
         return view('authors.index', compact('authors'));
     }
 
