@@ -22,18 +22,10 @@ class BookController extends Controller
      */
     public function index(Request $request): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        // $books = Book::all();
-
-        /*
-         * Search query
-         */
         $search = $request->get('search');
         $books = Book::when($search, function($sql) use ($search) {
             $sql->where('title', 'LIKE', '%' . $search . '%');
-        })->paginate(5);
-
-
-
+        })->paginate(10);
         return view('books.index', compact('books'));
     }
 
