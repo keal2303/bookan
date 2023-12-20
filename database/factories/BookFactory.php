@@ -28,7 +28,8 @@ class BookFactory extends Factory
             'isbn' => $this->faker->isbn10(),
             'language' => $this->faker->randomElement(['English', 'French', 'Other']),
             'published_year' => $this->faker->year,
-            'is_bookan_original' => false
+            'is_bookan_original' => false,
+            'image' => $this->faker->image('public/storage/books_images',640,480, null, false)
         ];
     }
 }

@@ -86,7 +86,7 @@ class BookController extends Controller
             }
 
             $book->save();
-            return redirect()->route('books.index')->with('success', 'Author created successfully.');
+            return redirect()->route('books.index')->with('success', 'Book created successfully.');
 
         } catch (Exception $e) {
             Log::error('Error in Book creation: ' . $e->getMessage());
@@ -150,7 +150,7 @@ class BookController extends Controller
             }
 
             $book->save();
-            return redirect()->route('books.index')->with('success', 'Author updated successfully.');
+            return redirect()->route('books.index')->with('success', 'Book updated successfully.');
 
         } catch (Exception $e) {
             Log::error('Error in Book update: ' . $e->getMessage());
@@ -166,6 +166,6 @@ class BookController extends Controller
     {
         $book = Book::findOrFail($id);
         $book->delete();
-        return redirect()->route('books.index')->with('success', 'Author deleted successfully.');
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully.');
     }
 }
