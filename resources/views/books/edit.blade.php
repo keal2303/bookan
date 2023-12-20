@@ -14,7 +14,6 @@
         @csrf
         @method('PUT')
         <label for="author_id">Author:</label><br>
-        <!-- TODO: Add search bar and action buttons -->
         <select id="author_id" name="author_id">
             <!-- Displays the recorded option value before the list of authors. -->
             <option value="{{ $book->author_id }}">{{ $book->author ? $book->author->name : 'N/A' }}</option>
@@ -24,7 +23,6 @@
             @endforeach
         </select><br>
         <label for="genre_id">Genre:</label><br>
-        <!-- TODO: Add search bar and action buttons -->
         <select id="genre_id" name="genre_id">
             <!-- Displays the recorded option value before the list of genres. -->
             <option value="{{ $book->genre_id }}">{{ $book->genre ? $book->genre->name : 'N/A' }}</option>

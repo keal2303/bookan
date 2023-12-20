@@ -32,7 +32,6 @@
         <label for="media">Media:</label><br>
         <input type="text" id="media" name="media" placeholder="{{ $author->media }}"><br>
         <label for="genre_id">Genre:</label>
-        <!-- TODO: Add search bar and action buttons -->
         <select id="genre_id" name="genre_id">
             <!-- Displays the recorded option value before the list of genres. -->
             <option value="{{ $author->genre_id }}">{{ $author->genre ? $author->genre->name : 'N/A' }}</option>

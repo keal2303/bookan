@@ -13,14 +13,12 @@
     <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="author_id">Author:</label><br>
-        <!-- TODO: Add search bar and action buttons -->
         <select id="author_id" name="author_id">
             @foreach($authors as $author)
                 <option value="{{ $author->id }}">{{ $author->name }}</option>
             @endforeach
         </select><br>
         <label for="genre_id">Genre:</label><br>
-        <!-- TODO: Add search bar and action buttons -->
         <select id="genre_id" name="genre_id">
             @foreach($genres as $genre)
                 <option value="{{ $genre->id }}">{{ $genre->name }}</option>
