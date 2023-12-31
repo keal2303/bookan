@@ -23,10 +23,18 @@ class BookController extends Controller
     public function index(Request $request): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $search = $request->get('search');
-        $books = Book::when($search, function($sql) use ($search) {
-            $sql->where('title', 'LIKE', '%' . $search . '%');
+        $genreFilter = $request->get('genre');
+
+        $books = Book::when($search, function($query) use ($search) {
+            $query->where('title', 'LIKE', '%' . $search . '%');
+        })->when($genreFilter, function($query) use ($genreFilter) {
+            $query->whereHas('genre', function($query) use ($genreFilter) {
+                $query->where('name', $genreFilter);
+            });
         })->paginate(10);
-        return view('books.index', compact('books'));
+
+        $genres = Genre::all();
+        return view('books.index', compact('books', 'genres'));
     }
 
     /**
