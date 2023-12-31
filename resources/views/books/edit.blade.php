@@ -54,13 +54,33 @@
         <input type="file" name="image">
         <button type="submit">Submit</button>
     </form>
+
+    <a href="{{ route('books.edit', $book->id) }}"><i class="material-icons">edit</i></a>&nbsp
+    <form action="{{ route('books.destroy', $book->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit"><i class="material-icons">delete</i></button>
+    </form>&nbsp
+
     <a href="{{ route('books.index') }}">Back to list</a>
     <script src="{{asset('ckeditor5/build/ckeditor.js')}}"></script>
     <script>
         ClassicEditor
-            .create( document.querySelector( '#description' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+            .create(document.querySelector('#description'), {
+                allowedContent: {
+                    $1: {
+                        // Use the `$1` placeholder to allow any class, attribute, and style.
+                        elements: CKEDITOR.dtd,
+                        attributes: true,
+                        styles: true,
+                        classes: true
+                    }
+                },
+                // Additional configuration...
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
     </script>
 </x-app-layout>

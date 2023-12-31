@@ -4,6 +4,8 @@
             {{ __($book->title) }}
         </h2>
     </x-slot>
+
+    <a href="{{ route('books.edit', $book->id) }}">Edit</a>
     <p>{!! $book->description !!}</p>
     Review Count: {{ $book->calculateReviewCount() }}
     Average Review Note: {{ number_format($book->calculateAverageReviewNote(), 2) }}
