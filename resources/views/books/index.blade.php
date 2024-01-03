@@ -4,9 +4,7 @@
             {{ __('Books List') }}
         </h2>
     </x-slot>
-
     <br>
-
     <form action="{{ route('books.index') }}" method="GET">
         <div class="inline-flex">
             &nbsp&nbsp<label>
@@ -61,5 +59,4 @@
     <div style="padding: 20px;">
         {{ $books->appends(['search' => request()->query('search')])->links() }}
     </div>
-
 </x-app-layout>

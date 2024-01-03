@@ -20,10 +20,17 @@ class AuthorController extends Controller
     public function index(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $search = $request->get('search');
-        $authors = Author::when($search, function ($sql) use ($search) {
-            $sql->where('name', 'LIKE', '%' . $search . '%');
+        $genreFilter = $request->get('genre');
+        $genres = Genre::all();
+
+        $authors = Author::when($search, function ($query) use ($search) {
+            $query->where('name', 'LIKE', '%' . $search . '%');
+        })->when($genreFilter, function($query) use ($genreFilter) {
+          $query->whereHas('genre', function($query) use ($genreFilter) {
+            $query->where('name', $genreFilter);
+          });
         })->paginate(10);
-        return view('authors.index', compact('authors'));
+        return view('authors.index', compact('authors', 'genres'));
     }
 
     /**

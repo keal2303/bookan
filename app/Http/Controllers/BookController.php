@@ -24,6 +24,7 @@ class BookController extends Controller
     {
         $search = $request->get('search');
         $genreFilter = $request->get('genre');
+        $genres = Genre::all();
 
         $books = Book::when($search, function($query) use ($search) {
             $query->where('title', 'LIKE', '%' . $search . '%');
@@ -32,8 +33,6 @@ class BookController extends Controller
                 $query->where('name', $genreFilter);
             });
         })->paginate(10);
-
-        $genres = Genre::all();
         return view('books.index', compact('books', 'genres'));
     }
 
