@@ -23,7 +23,8 @@ class GenreFactory extends Factory
 
         return [
             'name' => array_shift($genres), // Get the first element and remove it from the array
-            'description' => $this->faker->paragraph
+            'description' => $this->faker->paragraph,
+            'image' => $this->faker->image('public/storage/genres_images', 640, 480, null, false)
         ];
     }
 }
