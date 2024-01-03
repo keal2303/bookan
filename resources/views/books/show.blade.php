@@ -79,7 +79,6 @@
         @method('DELETE')
         <button type="submit">Delete</button>
     </form>
-    </body>
     <script>
         function openModal() {
             document.getElementById('bookModal').style.display = 'flex';
