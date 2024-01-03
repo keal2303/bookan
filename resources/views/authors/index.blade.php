@@ -45,6 +45,7 @@
         @foreach ($authors as $author)
             <li class="flex justify-between">
                 <div class="flex min-w-0 gap-x-4">
+                    <img class="h-12 w-8 flex-none bg-gray-50" src="{{ asset('storage/authors_images/' . $author->image) }}" alt="Image of the author">
                     <div class="min-w-0 flex-auto">
                         <a href="{{ route('authors.show', $author->id) }}">
                             <p class="text-sm font-semibold leading-6 text-gray-900">{{ $author->name }}</p>

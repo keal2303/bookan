@@ -29,7 +29,8 @@ class AuthorFactory extends Factory
             'is_alive' => $this->faker->randomElement([true, false]),
             'language' => $this->faker->randomElement(['English', 'French', 'Other']),
             'link' => $this->faker->url,
-            'media' => $this->faker->url
+            'media' => $this->faker->url,
+            'image' => $this->faker->image('public/storage/authors_images', 640, 480, null, false)
         ];
     }
 }
