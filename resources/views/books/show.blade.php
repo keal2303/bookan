@@ -74,14 +74,11 @@
         </div>
     </div>
     <a href="{{ route('books.index') }}">Back to list</a>
-    <script src="{{asset('ckeditor5/build/ckeditor.js')}}"></script>
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#message' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
+    <form action="{{ route('books.destroy', $book->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit">Delete</button>
+    </form>
     </body>
     <script>
         function openModal() {

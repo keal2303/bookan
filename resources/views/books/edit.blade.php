@@ -63,24 +63,4 @@
     </form>&nbsp
 
     <a href="{{ route('books.index') }}">Back to list</a>
-    <script src="{{asset('ckeditor5/build/ckeditor.js')}}"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#description'), {
-                allowedContent: {
-                    $1: {
-                        // Use the `$1` placeholder to allow any class, attribute, and style.
-                        elements: CKEDITOR.dtd,
-                        attributes: true,
-                        styles: true,
-                        classes: true
-                    }
-                },
-                // Additional configuration...
-            })
-            .catch(error => {
-                console.error(error);
-            });
-
-    </script>
 </x-app-layout>

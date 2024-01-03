@@ -42,12 +42,4 @@
         <button type="submit">Submit</button><br>
     </form>
     <a href="{{ route('books.index') }}">Back to list</a>
-    <script src="{{asset('ckeditor5/build/ckeditor.js')}}"></script>
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#description' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
 </x-app-layout>
