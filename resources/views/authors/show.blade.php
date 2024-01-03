@@ -4,6 +4,6 @@
             {{ __($author->name) }}
         </h2>
     </x-slot>
-    <p>{!! $author->bio !!}</p>
+    <p>{{ $author->bio }}</p>
     <a href="{{ route('authors.index') }}">Back to list</a>
 </x-app-layout>

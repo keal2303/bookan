@@ -6,7 +6,7 @@
     </x-slot>
 
     <a href="{{ route('books.edit', $book->id) }}">Edit</a>
-    <p>{!! $book->description !!}</p>
+    <p>{{ $book->description }}</p>
     Review Count: {{ $book->calculateReviewCount() }}
     Average Review Note: {{ number_format($book->calculateAverageReviewNote(), 2) }}
     <button onclick="openModal()">View Reviews</button>
@@ -63,7 +63,7 @@
             <h3>Reviews:</h3>
             @foreach($book->reviews as $review)
                 <p>Username {{ $review->review_note }}</p>
-                <p>{!! $review->message !!}</p>
+                <p>{{ $review->message }}</p>
                 <form action="{{ route('reviews.destroy', $review->id) }}" method="POST">
                     @csrf
                     @method('DELETE')

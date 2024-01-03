@@ -16,7 +16,7 @@
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" value="{{ $author->name }}"><br>
         <label for="bio">Bio:</label><br>
-        <textarea id="bio" name="bio" cols="30" rows="10">{!! $author->bio !!}</textarea><br>
+        <textarea id="bio" name="bio" cols="30" rows="10">{{ $author->bio }}</textarea><br>
         <label for="birth_year">Birth Year:</label><br>
         <input type="number" id="birth_year" name="birth_year" placeholder="{{ $author->birth_year }}"><br>
         <label for="death_year">Death Year <em>(If applicable)</em>:</label><br>

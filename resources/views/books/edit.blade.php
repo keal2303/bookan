@@ -34,7 +34,7 @@
         <label for="title">Title:</label><br>
         <input type="text" id="title" name="title" value="{{ $book->title }}"><br>
         <label for="description">Description:</label><br>
-        <textarea id="description" name="description" cols="30" rows="10">{!! $book->description !!}</textarea><br>
+        <textarea id="description" name="description" cols="30" rows="10">{{ $book->description }}</textarea><br>
         <label for="isbn">ISBN:</label><br>
         <input type="text" id="isbn" name="isbn" value="{{ $book->isbn }}"><br>
         <label for="language">Language</label><br>
