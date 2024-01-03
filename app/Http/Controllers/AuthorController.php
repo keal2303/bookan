@@ -55,7 +55,7 @@ class AuthorController extends Controller
             $validatedData = $request->validate([
                 'genre_id' => 'nullable',
                 'name' => 'required|unique:authors|max:255',
-                'bio' => 'required|safe_html',
+                'bio' => 'required',
                 'birth_year' => 'nullable',
                 'death_year' => 'nullable',
                 'language' => 'required',
@@ -130,7 +130,7 @@ class AuthorController extends Controller
             $validatedData = $request->validate([
                 'genre_id' => 'required',
                 'name' => 'required|max:255|unique:authors,name,' . $author->id,
-                'bio' => 'required|safe_html',
+                'bio' => 'required',
                 'birth_year' => 'nullable',
                 'death_year' => 'nullable',
                 'language' => 'required',
