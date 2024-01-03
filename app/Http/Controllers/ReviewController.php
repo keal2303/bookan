@@ -43,7 +43,7 @@ class ReviewController extends Controller
              */
             $validatedData = $request->validate([
                 'book_id' => 'required',
-                'message' => 'required|safe_html',
+                'message' => 'required',
                 'review_note' => 'required'
             ]);
 
