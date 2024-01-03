@@ -48,7 +48,7 @@
                     <img class="h-12 w-8 flex-none bg-gray-50" src="{{ asset('storage/books_images/' . $book->image) }}" alt="Image of the book">
                     <div class="min-w-0 flex-auto">
                         <a href="{{ route('books.show', $book->id) }}">
-                            <p class="text-sm font-semibold leading-6 text-gray-900">{{ $book->title }} by {{ $book->author->name }}</p>
+                            <p class="text-sm font-semibold leading-6 text-gray-900">{{ $book->title }} by {{ optional($book->author)->name }}</p>
                             <p class="mt-1 truncate text-xs leading-5 text-gray-500">{!! $book->description !!}</p>
                         </a>
                     </div>
