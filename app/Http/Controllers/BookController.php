@@ -64,7 +64,8 @@ class BookController extends Controller
                 'description' => 'required',
                 'isbn' => 'nullable|max:13',
                 'published_year' => 'required|digits:4',
-                'image' => 'nullable|image|max:2048'
+                'image' => 'nullable|image|max:2048',
+                'link' => 'nullable'
             ]);
 
             $languages = [
@@ -139,7 +140,8 @@ class BookController extends Controller
                 'description' => 'required',
                 'isbn' => 'required|max:13',
                 'published_year' => 'required|digits:4',
-                'image' => 'nullable|image|max:2048'
+                'image' => 'nullable|image|max:2048',
+                'link' => 'nullable'
             ]);
             $book = Book::findOrFail($id);
             $book->fill($validatedData);

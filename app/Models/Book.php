@@ -26,7 +26,8 @@ class Book extends Model
         'isbn',
         'language',
         'published_year',
-        'image'
+        'image',
+        'link'
     ];
 
     protected $hidden = [

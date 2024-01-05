@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('language');
             $table->string('published_year');
             $table->string('image')->nullable();
+            $table->string('link')->nullable();
             $table->string('is_bookan_original')->default(false);
             $table->timestamps();
 
