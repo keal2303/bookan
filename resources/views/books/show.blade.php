@@ -23,12 +23,14 @@
                     x-on:click.prevent="$dispatch('open-modal', 'create-review')">
                     Add Review
                 </x-primary-button>
-                <x-primary-button><a href="{{ route('books.edit', $book->id) }}">Edit Book</a></x-primary-button>
-                <form action="{{ route('books.destroy', $book->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <x-danger-button type="submit" class="mt-2">Delete</x-danger-button>
-                </form>
+                @if($user['role'] == 'admin')
+                    <x-primary-button><a href="{{ route('books.edit', $book->id) }}">Edit Book</a></x-primary-button>
+                    <form action="{{ route('books.destroy', $book->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <x-danger-button type="submit" class="mt-2">Delete</x-danger-button>
+                    </form>
+                @endif
             </div>
             <br>
             <p><strong>Review Count: </strong>{{ $book->calculateReviewCount() }}</p>
