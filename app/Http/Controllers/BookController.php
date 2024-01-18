@@ -22,6 +22,7 @@ class BookController extends Controller
      */
     public function index(Request $request): View|\Illuminate\Foundation\Application|Factory|Application
     {
+        $user = $request->user();
         $search = $request->get('search');
         $genreFilter = $request->get('genre');
         $genres = Genre::all();
@@ -33,7 +34,7 @@ class BookController extends Controller
                 $query->where('name', $genreFilter);
             });
         })->paginate(10);
-        return view('books.index', compact('books', 'genres'));
+        return view('books.index', compact('books', 'genres', 'user'));
     }
 
     /**
