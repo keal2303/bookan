@@ -7,6 +7,7 @@ use App\Models\Author;
 use App\Models\Genre;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -42,6 +43,7 @@ class BookController extends Controller
      */
     public function create(): View|\Illuminate\Foundation\Application|Factory|Application
     {
+        $this->authorize('create', Book::class);
         $authors = Author::all(); // Used for select options in blade template.
         $genres = Genre::all(); // Same here.
         return view('books.create', compact( 'authors', 'genres'));
@@ -120,6 +122,7 @@ class BookController extends Controller
     public function edit(string $id): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $book = Book::findOrFail($id);
+        $this->authorize('updateadd policies', $book);
         $authors = Author::all(); // Used for select options in blade template.
         $genres = Genre::all(); // Same here.
         return view('books.edit', compact('book', 'authors', 'genres'));
@@ -146,6 +149,7 @@ class BookController extends Controller
                 'link' => 'nullable'
             ]);
             $book = Book::findOrFail($id);
+            $this->authorize('update', $book);
             $book->fill($validatedData);
 
             /**
@@ -176,6 +180,7 @@ class BookController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         $book = Book::findOrFail($id);
+        $this->authorize('destroy', $book);
         $book->delete();
         return redirect()->route('books.index')->with('success', 'Book deleted successfully.');
     }
