@@ -122,7 +122,7 @@ class BookController extends Controller
     public function edit(string $id): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $book = Book::findOrFail($id);
-        $this->authorize('updateadd policies', $book);
+        $this->authorize('update', $book);
         $authors = Author::all(); // Used for select options in blade template.
         $genres = Genre::all(); // Same here.
         return view('books.edit', compact('book', 'authors', 'genres'));
