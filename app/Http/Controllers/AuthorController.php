@@ -19,6 +19,7 @@ class AuthorController extends Controller
      */
     public function index(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        $user = $request->user();
         $search = $request->get('search');
         $genreFilter = $request->get('genre');
         $genres = Genre::all();
@@ -30,7 +31,7 @@ class AuthorController extends Controller
             $query->where('name', $genreFilter);
           });
         })->paginate(10);
-        return view('authors.index', compact('authors', 'genres'));
+        return view('authors.index', compact('authors', 'genres', 'user'));
     }
 
     /**
@@ -38,6 +39,7 @@ class AuthorController extends Controller
      */
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        $this->authorize('create', Author::class);
         $genres = Genre::all(); // Used for select options in blade template.
         return view('authors.create', compact('genres'));
     }
@@ -99,10 +101,11 @@ class AuthorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function show(Request $request, string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        $user = $request->user();
         $author = Author::findOrFail($id);
-        return view('authors.show', compact('author'));
+        return view('authors.show', compact('author', 'user'));
     }
 
     /**
@@ -112,6 +115,7 @@ class AuthorController extends Controller
     {
         $genres = Genre::all(); // Used for select options in blade template
         $author = Author::findOrFail($id);
+        $this->authorize('update', $author);
         return view('authors.edit', compact('author', 'genres'));
     }
 
@@ -123,6 +127,7 @@ class AuthorController extends Controller
         try
         {
             $author = Author::findOrFail($id);
+            $this->authorize('update', $author);
 
             /**
              * Validate the data to update.
@@ -168,6 +173,7 @@ class AuthorController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         $author = Author::findOrFail($id);
+        $this->authorize('destroy', $author);
         $author->delete();
         return redirect()->route('authors.index')->with('success', 'Author deleted successfully.');
     }

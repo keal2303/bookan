@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\Book;
+use App\Models\Author;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class BookPolicy
+class AuthorPolicy
 {
     use HandlesAuthorization;
 
@@ -22,12 +22,15 @@ class BookPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function edit(User $user, Book $book): bool
+    public function edit(User $user, Author $author): bool
     {
         return $user->role == 'admin';
     }
 
-    public function update(User $user, Book $book): bool
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user, Author $author): bool
     {
         return $user->role == 'admin';
     }
@@ -35,8 +38,9 @@ class BookPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function destroy(User $user, Book $book): bool
+    public function destroy(User $user, Author $author): bool
     {
         return $user->role == 'admin';
     }
+
 }

@@ -5,5 +5,13 @@
         </h2>
     </x-slot>
     <p>{{ $author->bio }}</p>
+    @if($user['role'] == 'admin')
+        <x-primary-button><a href="{{ route('authors.edit', $author->id) }}">Edit Author</a></x-primary-button>
+        <form action="{{ route('authors.destroy', $author->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <x-danger-button type="submit" class="mt-2">Delete</x-danger-button>
+        </form>
+    @endif
     <a href="{{ route('authors.index') }}">Back to list</a>
 </x-app-layout>
