@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     <p>{{ $author->bio }}</p>
-    @if($user['role'] == 'admin')
+    @if($user['role'] == 'admin' || $user['role'] == 'moderator')
         <x-primary-button><a href="{{ route('authors.edit', $author->id) }}">Edit</a></x-primary-button>
         <form action="{{ route('authors.destroy', $author->id) }}" method="POST">
             @csrf

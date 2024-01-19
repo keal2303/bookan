@@ -16,7 +16,7 @@ class BookPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'admin' || $user->role == 'contributor';
     }
 
     /**
@@ -24,12 +24,12 @@ class BookPolicy
      */
     public function edit(User $user, Book $book): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'admin' || $user->role == 'moderator';
     }
 
     public function update(User $user, Book $book): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'admin' || $user->role == 'moderator';
     }
 
     /**
@@ -37,6 +37,6 @@ class BookPolicy
      */
     public function destroy(User $user, Book $book): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'admin' || $user->role == 'moderator';
     }
 }

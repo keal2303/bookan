@@ -16,7 +16,7 @@ class AuthorPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'admin' || $user->role == 'contributor';
     }
 
     /**
@@ -24,7 +24,7 @@ class AuthorPolicy
      */
     public function edit(User $user, Author $author): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'admin' || $user->role == 'moderator';
     }
 
     /**
@@ -32,7 +32,7 @@ class AuthorPolicy
      */
     public function update(User $user, Author $author): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'admin' || $user->role == 'moderator';
     }
 
     /**
@@ -40,7 +40,7 @@ class AuthorPolicy
      */
     public function destroy(User $user, Author $author): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'admin' || $user->role == 'moderator';
     }
 
 }

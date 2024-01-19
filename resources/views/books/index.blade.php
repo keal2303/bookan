@@ -28,7 +28,7 @@
                     @endforeach
                 </select>
             </label>
-            @if($user['role'] == 'admin')
+            @if($user['role'] == 'admin' || $user['role'] == 'contributor')
                 <div class="relative group">
                     <button type="button" class="bg-blue-900 p-2 text-white ms-4 rounded-lg">
                         <a href="{{ route('books.create') }}" class="border-solid">

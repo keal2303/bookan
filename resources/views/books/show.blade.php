@@ -23,7 +23,7 @@
                     x-on:click.prevent="$dispatch('open-modal', 'create-review')">
                     Add Review
                 </x-primary-button>
-                @if($user['role'] == 'admin')
+                @if($user['role'] == 'admin' || $user['role'] == 'moderator')
                     <x-primary-button><a href="{{ route('books.edit', $book->id) }}">Edit Book</a></x-primary-button>
                     <form action="{{ route('books.destroy', $book->id) }}" method="POST">
                         @csrf
